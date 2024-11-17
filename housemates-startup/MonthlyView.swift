@@ -9,20 +9,41 @@ import SwiftUI
 
 struct MonthlyView: View {
     
-    let columns = Array(repeating: GridItem(.flexible()), count: 7)
-    @State private var date = Date.now
+    @StateObject var viewModel = TaskViewModel()
+    @State var date: Date
     @State private var days: [Date] = []
+    let columns = Array(repeating: GridItem(.flexible()), count: 7)
     
     var body: some View {
         NavigationStack {
             VStack(alignment: .center) {
-                HStack(alignment: .top) {
+                HStack(alignment: .center) {
                     Text(date, format: Date.FormatStyle().month().year())
                         .font(.title)
                         .fontWeight(.bold)
                     Spacer()
                     DatePicker("", selection: $date, displayedComponents: [.date]
                     ).datePickerStyle(CompactDatePickerStyle())
+                    Spacer()
+                    HStack(alignment: .center) {
+                        Button(action: {
+                            date = Calendar.current.date(byAdding: .day, value: -date.startOfPreviousMonth.numberOfDaysInMonth, to: date)!
+                        }) {
+                            Image(systemName: "arrow.left")
+                        }
+                        
+                        Button(action: {
+                            date = Date.now
+                        }) {
+                            Image(systemName: "house")
+                        }
+                        
+                        Button(action: {
+                            date = Calendar.current.date(byAdding: .day, value: date.numberOfDaysInMonth, to: date)!
+                        }) {
+                            Image(systemName: "arrow.right")
+                        }
+                    }
                 }
                 .padding(.bottom)
                 .padding(.horizontal, 16)
@@ -30,7 +51,7 @@ struct MonthlyView: View {
                 Group{
                     HStack() {
                         ForEach(Date.daysInAWeek, id: \.self) { day in
-                            Text(day)
+                            Text(day.prefix(1))
                                 .frame(maxWidth: .infinity)
                                 .fontWeight(.bold)
                         }
@@ -41,29 +62,31 @@ struct MonthlyView: View {
                             if day.monthInt != date.monthInt {
                                 Text(day.formatted(.dateTime.day()))
                                     .fontWeight(.bold)
-                                    .foregroundStyle(.blue)
-                                    .frame(maxWidth: .infinity, minHeight: 40)
-                            } else {
-                                Text(day.formatted(.dateTime.day()))
-                                    .fontWeight(.bold)
                                     .foregroundStyle(.secondary)
                                     .frame(maxWidth: .infinity, minHeight: 40)
-                                    .background(
-                                        Circle()
-                                            .foregroundStyle(
-                                                Calendar.current.startOfDay(for: date) == Calendar.current.startOfDay(for: day)
-                                                ? Color.red.opacity(0.3) : Color.blue.opacity(0.3)
-                                            )
-                                    )
-                                
+                            } else {
+                                Button(action: {
+                                    date = Calendar.current.startOfDay(for: day)
+                                }){
+                                    Text(day.formatted(.dateTime.day()))
+                                        .fontWeight(.bold)
+                                        .foregroundStyle(.blue)
+                                        .frame(maxWidth: .infinity, minHeight: 40)
+                                        .background(
+                                            Circle()
+                                                .foregroundStyle(
+                                                    Calendar.current.startOfDay(for: date) == Calendar.current.startOfDay(for: day)
+                                                    ? Color.red.opacity(0.3) : Color.blue.opacity(0)
+                                                )
+                                        )
+                                }
                             }
                         }
                     }
-                    
-                    NavigationLink("Go to weekly view", destination: WeeklyView())
+                    NavigationLink("Go to weekly view", destination: WeeklyView(date: $date))
                         .padding(.vertical, 8)
                 }.padding(.horizontal, 12)
-                Spacer()
+                
             }
             .padding(.top, 40)
             .onAppear() {
@@ -72,10 +95,9 @@ struct MonthlyView: View {
             .onChange(of: date) {
                 days = date.calendarDisplayDays
             }
+            Spacer()
+            
         }
     }
 }
 
-#Preview {
-    MonthlyView()
-}

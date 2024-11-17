@@ -10,6 +10,9 @@
 		342F4E342CE625820092251B /* MonthlyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342F4E332CE625820092251B /* MonthlyView.swift */; };
 		342F4E372CE73A810092251B /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342F4E362CE73A810092251B /* Date+Extension.swift */; };
 		34A6985B2CE8C5F700AAA981 /* WeeklyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A6985A2CE8C5F700AAA981 /* WeeklyView.swift */; };
+		34A6985D2CE99BE200AAA981 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A6985C2CE99BE200AAA981 /* Task.swift */; };
+		34A6985F2CE99C3500AAA981 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A6985E2CE99C3500AAA981 /* TaskViewModel.swift */; };
+		34A698612CE9A8A100AAA981 /* DailyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A698602CE9A8A100AAA981 /* DailyView.swift */; };
 		34E6C4452CE6213C00A25F06 /* housemates_startupApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E6C4442CE6213C00A25F06 /* housemates_startupApp.swift */; };
 		34E6C4472CE6213C00A25F06 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E6C4462CE6213C00A25F06 /* ContentView.swift */; };
 		34E6C4492CE6213D00A25F06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34E6C4482CE6213D00A25F06 /* Assets.xcassets */; };
@@ -20,6 +23,9 @@
 		342F4E332CE625820092251B /* MonthlyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyView.swift; sourceTree = "<group>"; };
 		342F4E362CE73A810092251B /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		34A6985A2CE8C5F700AAA981 /* WeeklyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyView.swift; sourceTree = "<group>"; };
+		34A6985C2CE99BE200AAA981 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		34A6985E2CE99C3500AAA981 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
+		34A698602CE9A8A100AAA981 /* DailyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyView.swift; sourceTree = "<group>"; };
 		34E6C4412CE6213C00A25F06 /* housemates-startup.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "housemates-startup.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		34E6C4442CE6213C00A25F06 /* housemates_startupApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = housemates_startupApp.swift; sourceTree = "<group>"; };
 		34E6C4462CE6213C00A25F06 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -60,10 +66,13 @@
 				34E6C4442CE6213C00A25F06 /* housemates_startupApp.swift */,
 				34E6C4462CE6213C00A25F06 /* ContentView.swift */,
 				342F4E332CE625820092251B /* MonthlyView.swift */,
+				34A698602CE9A8A100AAA981 /* DailyView.swift */,
 				342F4E362CE73A810092251B /* Date+Extension.swift */,
 				34E6C4482CE6213D00A25F06 /* Assets.xcassets */,
 				34E6C44A2CE6213D00A25F06 /* Preview Content */,
 				34A6985A2CE8C5F700AAA981 /* WeeklyView.swift */,
+				34A6985C2CE99BE200AAA981 /* Task.swift */,
+				34A6985E2CE99C3500AAA981 /* TaskViewModel.swift */,
 			);
 			path = "housemates-startup";
 			sourceTree = "<group>";
@@ -146,10 +155,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34A698612CE9A8A100AAA981 /* DailyView.swift in Sources */,
 				342F4E342CE625820092251B /* MonthlyView.swift in Sources */,
+				34A6985F2CE99C3500AAA981 /* TaskViewModel.swift in Sources */,
 				34E6C4472CE6213C00A25F06 /* ContentView.swift in Sources */,
 				34A6985B2CE8C5F700AAA981 /* WeeklyView.swift in Sources */,
 				34E6C4452CE6213C00A25F06 /* housemates_startupApp.swift in Sources */,
+				34A6985D2CE99BE200AAA981 /* Task.swift in Sources */,
 				342F4E372CE73A810092251B /* Date+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,12 +8,12 @@
 import Foundation
 
 extension Date {
-    static let daysInAWeek: [String] = ["S", "M", "T", "W", "T", "F", "S"]
+    static let daysInAWeek: [String] = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
     
     var startOfMonth: Date {
         Calendar.current.dateInterval(of: .month, for: self)!.start
     }
-    
+
     var endOfMonth: Date {
         let lastDay = Calendar.current.dateInterval(of: .month, for: self)!.end
         return Calendar.current.date(byAdding: .day, value: -1, to: lastDay)!
@@ -45,11 +45,13 @@ extension Date {
         return Calendar.current.date(byAdding: .day, value: numberToNextMonth, to: endOfMonth)!
     }
     
-//    var currentWeek: Date {
-//        let startOfWeek = calendar.dateInterval(of: .weekOfYear, for: today)?.start ?? today
-//
-//        let currentWeek = Calendar.curr
-//    }
+    var sundayOfWeek: Date {
+        let currentWeekday = Calendar.current.component(.weekday, from: self)
+        let daysFromSunday = (currentWeekday - 1) % 7
+
+        return Calendar.current.date(byAdding: .day, value: -daysFromSunday, to: self)!
+        
+    }
     
     var calendarDisplayDays: [Date] {
         var days: [Date] = []
@@ -77,5 +79,9 @@ extension Date {
     
     var monthInt: Int {
         Calendar.current.component(.month, from: self)
+    }
+    
+    func addToDate(numDays: Int) -> Date {
+        return Calendar.current.date(byAdding: .day, value: numDays, to: self)!
     }
 }
