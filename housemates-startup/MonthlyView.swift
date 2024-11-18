@@ -29,11 +29,12 @@ struct MonthlyView: View {
                         Button(action: {
                             date = Calendar.current.date(byAdding: .day, value: -date.startOfPreviousMonth.numberOfDaysInMonth, to: date)!
                         }) {
+                            
                             Image(systemName: "arrow.left")
                         }
                         
                         Button(action: {
-                            date = Date.now
+                            date = Calendar.current.startOfDay(for: Date.now)
                         }) {
                             Image(systemName: "house")
                         }

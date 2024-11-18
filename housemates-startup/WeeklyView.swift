@@ -11,6 +11,9 @@ struct WeeklyView: View {
     @StateObject var viewModel = TaskViewModel()
     @Binding var date: Date
     @State var fullCalendarShown: Bool = false
+    let columns = Array(repeating: GridItem(.flexible()), count: 7)
+    @State private var days: [Date] = []
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -38,8 +41,11 @@ struct WeeklyView: View {
                             .font(.title)
                             .fontWeight(.bold)
                         Button(action: {
-                            fullCalendarShown.toggle()
-                            print(fullCalendarShown)
+                            withAnimation(.easeInOut(duration: 0.5)) {
+                                fullCalendarShown.toggle()
+                                days = fullCalendarShown ? date.calendarDisplayDays : date.allWeekDays
+                            }
+                                                        
                         }) {
                             fullCalendarShown ? Image(systemName: "arrow.down.forward.and.arrow.up.backward") :
                             Image(systemName: "arrow.down.backward.and.arrow.up.forward")
@@ -47,19 +53,19 @@ struct WeeklyView: View {
                         Spacer()
                         HStack(alignment: .center) {
                             Button(action: {
-                                date = Calendar.current.date(byAdding: .day, value: -7, to: date)!
+                                date = Calendar.current.date(byAdding: .day, value: -date.startOfPreviousMonth.numberOfDaysInMonth, to: date)!
                             }) {
                                 Image(systemName: "arrow.left")
                             }
                             
                             Button(action: {
-                                date = Date.now
+                                date = Calendar.current.startOfDay(for: Date.now)
                             }) {
                                 Image(systemName: "house")
                             }
                             
                             Button(action: {
-                                date = Calendar.current.date(byAdding: .day, value: 7, to: date)!
+                                date = Calendar.current.date(byAdding: .day, value: date.numberOfDaysInMonth, to: date)!
                             }) {
                                 Image(systemName: "arrow.right")
                             }
@@ -68,50 +74,60 @@ struct WeeklyView: View {
                     .padding(.bottom)
                     .padding(.horizontal, 16)
                     
-                    VStack(spacing: 0) {
-                        HStack(spacing: 0){
-                            ForEach(0..<7, id: \.self) { day in
-                                VStack {
-                                    Text("\(Date.daysInAWeek[day])")
-                                        .font(.subheadline)
-                                        .padding(.top, 6)
-                                    Button(action: {
-                                        withAnimation(.spring()) {
-                                            date = date.sundayOfWeek.addToDate(numDays: day)
-                                        }
-                                    }) {
-                                        Text(date.sundayOfWeek.addToDate(numDays: day), format: Date.FormatStyle().day())
-                                            .foregroundColor(Color.black)
-                                            .font(.headline)
-                                            .frame(maxWidth: .infinity)
-                                            .padding(8)
-                
-                                    }
-                                }
-                                
-                                .background(
-                                    RoundedRectangle(cornerRadius: 14, style: .continuous)
-                                        .foregroundStyle(
-                                            Calendar.current.startOfDay(for: date) == Calendar.current.startOfDay(for: date.sundayOfWeek.addToDate(numDays: day))
-                                            ? Color.red.opacity(0.3) : Color.red.opacity(0)
-                                        )
-                                )
-                                .padding(4)
-                                
-                            }
+                    HStack() {
+                        ForEach(Date.daysInAWeek, id: \.self) { day in
+                            Text(day.prefix(1))
+                                .frame(maxWidth: .infinity)
+                                .fontWeight(.bold)
                         }
-                        .padding(4)
-                        .padding(.vertical, 4)
-                        .background(Color.blue.opacity(0))
-                        
                     }
-                    .clipShape(RoundedRectangle(cornerRadius: 3.0, style: .continuous))
-
                     .padding(.horizontal, 12)
+                    .padding(.bottom, 8)
+                        LazyVGrid(columns: columns) {
+                            ForEach(days, id: \.self) { day in
+                                if day.monthInt != date.monthInt {
+                                    Text(day.formatted(.dateTime.day()))
+                                        .fontWeight(.bold)
+                                        .foregroundStyle(.secondary)
+                                        .frame(maxWidth: .infinity, minHeight: 40)
+                                } else {
+                                    Button(action: {
+                                        date = Calendar.current.startOfDay(for: day)
+                                                                            
+                                    }){
+                                        Text(day.formatted(.dateTime.day()))
+                                            .fontWeight(.bold)
+                                            .foregroundStyle(.blue)
+                                            .frame(maxWidth: .infinity, minHeight: 40)
+                                            .background(
+                                                Circle()
+                                                    .foregroundStyle(
+                                                        Calendar.current.startOfDay(for: date) == Calendar.current.startOfDay(for: day)
+                                                        ? Color.red.opacity(0.3) : Color.blue.opacity(0)
+                                                    )
+                                            )
+                                            
+                                    }
+                                    
+                                }
+                            }
+                            
+                            
+                        }
+                        .transition(.move(edge: .top))
+
+
+
+                        .padding(.bottom, 18)
+                        .clipShape(RoundedRectangle(cornerRadius: 3.0, style: .continuous))
+                        .padding(.horizontal, 12)
+                        .transition(.move(edge: .top))
+                    
+
                 }
                 .background(Color.white)
                 .cornerRadius(40)
-
+                
                 HStack {
                     NavigationLink("Go to monthly view", destination: MonthlyView(date: date))
                         .padding(.vertical, 8)
@@ -123,15 +139,13 @@ struct WeeklyView: View {
                         ForEach(viewModel.getTasks(for: date), id: \.id) { task in
                             HStack {
                                 VStack (alignment: .leading){
-                                    Text("15:00 - 16:00")
+                                    Text("\(task.time, format: Date.FormatStyle().hour().minute()) - \(task.endTime, format: Date.FormatStyle().hour().minute())")
                                         .font(.caption2)
                                         .padding(.bottom, 2)
                                     Text(task.title)
                                         .font(.title3)
                                         .fontWeight(.bold)
-                                    
-                                    Text(task.description)
-                                        .font(.footnote)
+
                                     Spacer()
                                     HStack(alignment: .center) {
                                         Text("Today")
@@ -142,7 +156,7 @@ struct WeeklyView: View {
                                                     .fill(Color.gray.opacity(0.3))
                                             )
                                         
-                                        Text("1h")
+                                        Text("\(task.formattedDuration)")
                                             .font(.footnote)
                                             .padding(12)
                                             .background(
@@ -179,7 +193,17 @@ struct WeeklyView: View {
             .ignoresSafeArea()
             
             .background(Color.black)
-            
+            .onAppear() {
+                days = date.allWeekDays
+            }
+            .onChange(of: date) {
+                if (fullCalendarShown) {
+                    days = date.calendarDisplayDays
+                } else {
+                    days = date.allWeekDays
+                }
+            }
+
         }
         .navigationBarBackButtonHidden(true)
     }

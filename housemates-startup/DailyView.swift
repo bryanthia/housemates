@@ -28,7 +28,7 @@ struct DailyView: View {
                         }
                         
                         Button(action: {
-                            date = Date.now
+                            date = Calendar.current.startOfDay(for: Date.now)
                         }) {
                             Image(systemName: "house")
                         }

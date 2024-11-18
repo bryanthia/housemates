@@ -77,6 +77,14 @@ extension Date {
         return days.filter { $0 >= sundayBeforeStart && $0 <= sundayAfterEnd }.sorted(by: <)
     }
     
+    var allWeekDays: [Date] {
+        var days: [Date] = []
+        for weekdays in 0..<7 {
+            days.append(self.sundayOfWeek.addToDate(numDays: weekdays))
+        }
+        return days
+    }
+    
     var monthInt: Int {
         Calendar.current.component(.month, from: self)
     }
@@ -84,4 +92,6 @@ extension Date {
     func addToDate(numDays: Int) -> Date {
         return Calendar.current.date(byAdding: .day, value: numDays, to: self)!
     }
+    
+    
 }

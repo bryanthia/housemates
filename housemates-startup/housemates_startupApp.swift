@@ -11,7 +11,7 @@ import SwiftUI
 struct housemates_startupApp: App {
     var body: some Scene {
         WindowGroup {
-            MonthlyView(date: Date.now)
+            MonthlyView(date: Calendar.current.startOfDay(for: Date.now))
         }
     }
 }
