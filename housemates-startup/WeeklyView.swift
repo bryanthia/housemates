@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct WeeklyView: View {
     @StateObject var viewModel = TaskViewModel()
@@ -13,6 +14,8 @@ struct WeeklyView: View {
     @State var fullCalendarShown: Bool = false
     let columns = Array(repeating: GridItem(.flexible()), count: 7)
     @State private var days: [Date] = []
+    @State var isTaskCategoryView: Bool = false
+    @State private var createNewTask: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -115,9 +118,6 @@ struct WeeklyView: View {
                             
                         }
                         .transition(.move(edge: .top))
-
-
-
                         .padding(.bottom, 18)
                         .clipShape(RoundedRectangle(cornerRadius: 3.0, style: .continuous))
                         .padding(.horizontal, 12)
@@ -203,6 +203,46 @@ struct WeeklyView: View {
                     days = date.allWeekDays
                 }
             }
+            .sheet(isPresented: $createNewTask, content: {
+                VStack {
+                    if isTaskCategoryView == true {
+                        TaskCategoryView(isTaskCategoryView: $isTaskCategoryView)
+                            .presentationDetents([.height(450)])
+                            .interactiveDismissDisabled()
+                            .presentationCornerRadius(30)
+                            .presentationBackground(.white)
+                    } else {
+                        NewTaskView(isTaskCategoryView: $isTaskCategoryView)
+                            .presentationDetents([.height(550)])
+                            .interactiveDismissDisabled()
+                            .presentationCornerRadius(30)
+                            .presentationBackground(.white)
+                        
+                        
+                    }
+                }
+                
+            
+            })
+            .onChange(of: isTaskCategoryView) {  // Debugging line
+            }
+            .overlay(alignment: .bottomTrailing) {
+                Button(action: {
+                        
+                    isTaskCategoryView.toggle()
+                    createNewTask = true
+                    
+                }, label: {
+                    Image(systemName: "plus")
+                        .fontWeight(.semibold)
+                        .foregroundStyle(.white)
+                        .frame(width: 55, height: 55)
+                        .background(.blue.shadow(.drop(color: .black.opacity(0.25), radius: 5, x: 10, y: 10)), in: .circle)
+                })
+                .padding(15)
+            }
+            
+
 
         }
         .navigationBarBackButtonHidden(true)

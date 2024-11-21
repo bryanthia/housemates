@@ -1,6 +1,6 @@
 import Foundation
 
-struct Task: Identifiable {
+struct TaskInstance: Identifiable {
     var id: UUID
     var title: String
     var time: Date
@@ -29,7 +29,7 @@ struct Task: Identifiable {
 struct DailyTasks: Identifiable {
     var id: UUID
     var date: Date
-    var tasks: [Task]
+    var tasks: [TaskInstance]
     
     // Normalize date to midnight to avoid time issues
     static func normalizedDate(from date: Date) -> Date {
