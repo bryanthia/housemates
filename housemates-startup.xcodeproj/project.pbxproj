@@ -26,7 +26,6 @@
 		34F35B162CEF3F56007A68E0 /* SignInEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F35B152CEF3F56007A68E0 /* SignInEmailViewModel.swift */; };
 		34F35B182CEF40BA007A68E0 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F35B172CEF40BA007A68E0 /* AuthenticationManager.swift */; };
 		34F35B1A2CEF41AE007A68E0 /* AuthDataResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F35B192CEF41AE007A68E0 /* AuthDataResultModel.swift */; };
-		34F35B1C2CEF4585007A68E0 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F35B1B2CEF4585007A68E0 /* RootView.swift */; };
 		34F35B1E2CEF4685007A68E0 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F35B1D2CEF4685007A68E0 /* SettingsView.swift */; };
 		34F35B212CEF56B6007A68E0 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 34F35B202CEF56B6007A68E0 /* GoogleSignIn */; };
 		34F35B232CEF56B6007A68E0 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 34F35B222CEF56B6007A68E0 /* GoogleSignInSwift */; };
@@ -54,7 +53,6 @@
 		34F35B152CEF3F56007A68E0 /* SignInEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInEmailViewModel.swift; sourceTree = "<group>"; };
 		34F35B172CEF40BA007A68E0 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		34F35B192CEF41AE007A68E0 /* AuthDataResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDataResultModel.swift; sourceTree = "<group>"; };
-		34F35B1B2CEF4585007A68E0 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		34F35B1D2CEF4685007A68E0 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		34F35B242CEF56EA007A68E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		34F35B272CEF5931007A68E0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -140,7 +138,6 @@
 				34F35B152CEF3F56007A68E0 /* SignInEmailViewModel.swift */,
 				34F35B172CEF40BA007A68E0 /* AuthenticationManager.swift */,
 				34F35B192CEF41AE007A68E0 /* AuthDataResultModel.swift */,
-				34F35B1B2CEF4585007A68E0 /* RootView.swift */,
 				34F35B1D2CEF4685007A68E0 /* SettingsView.swift */,
 				34F35B2C2CEF6495007A68E0 /* SignInGoogleHelper.swift */,
 			);
@@ -246,7 +243,6 @@
 				34F35B162CEF3F56007A68E0 /* SignInEmailViewModel.swift in Sources */,
 				34E6C4472CE6213C00A25F06 /* ContentView.swift in Sources */,
 				34A6985B2CE8C5F700AAA981 /* WeeklyView.swift in Sources */,
-				34F35B1C2CEF4585007A68E0 /* RootView.swift in Sources */,
 				34F35B2D2CEF6495007A68E0 /* SignInGoogleHelper.swift in Sources */,
 				34E6C4452CE6213C00A25F06 /* housemates_startupApp.swift in Sources */,
 				34F35B1A2CEF41AE007A68E0 /* AuthDataResultModel.swift in Sources */,

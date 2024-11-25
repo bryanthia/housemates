@@ -16,6 +16,6 @@ struct AuthDataResultModel {
     init(user: User) {
         self.uid = user.uid
         self.email = user.email
-        self.photoUrl = user.photoURL?.absoluteString
+        self.photoUrl = user.photoURL?.absoluteString   
     }
 }
